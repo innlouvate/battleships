@@ -1,5 +1,7 @@
 package battleship;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -9,61 +11,59 @@ import static org.junit.Assert.*;
  */
 public class GameTest extends Game {
 
-    @Test
-    public void testGameSetup() {
-        Game game = new Game();
-        assertEquals(null, game.getLocationCells());
+    public Game game = new Game();
+
+    @Before
+    public void initGame() {
+        int[] locations = {2,3,4};
+        game.setLocationCells(locations);
     }
 
     @Test
-    public void testCheckPlayTrue() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        assertEquals(true, game.checkMove("2"));
-    }
-
-    @Test
-    public void testCheckPlayFalse() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        assertEquals(false, game.checkMove("1"));
+    public void testInit() {
+        assertEquals(0, game.getHitCount());
+        assertEquals(3, game.getBoatLength());
     }
 
     @Test
     public void testHitCountIncreases() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        game.moveResult("2");
+        game.makeMove("2");
         assertEquals(1, game.getHitCount());
     }
 
     @Test
-    public void testMoveResultMiss() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        assertEquals("Miss", game.moveResult("1"));
+    public void testGuessesIncreasesWhenHit() {
+        game.makeMove("2");
+        assertEquals(1, game.getGuessesSize());
     }
 
     @Test
-    public void testMoveResultHit() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        assertEquals("Hit", game.moveResult("2"));
+    public void testGuessesIncreasesWhenMiss() {
+        game.makeMove("1");
+        assertEquals(1, game.getGuessesSize());
     }
 
     @Test
-    public void testMoveResultSink() {
-        Game game = new Game();
-        int[] locations = {2,3,4};
-        game.setLocationCells(locations);
-        game.moveResult("2");
-        game.moveResult("3");
-        assertEquals("Sink", game.moveResult("4"));
+    public void testMakeMoveMiss() {
+        assertEquals("Miss", game.makeMove("1"));
+    }
+
+    @Test
+    public void testMakeMoveHit() {
+        assertEquals("Hit", game.makeMove("2"));
+    }
+
+    @Test
+    public void testMakeMoveSink() {
+        game.makeMove("2");
+        game.makeMove("3");
+        assertEquals("Sink", game.makeMove("4"));
+    }
+
+    @Test
+    public void testMakeMoveError() {
+        game.makeMove("2");
+        assertEquals("You already tried that cell!", game.makeMove("2"));
     }
 
 }
