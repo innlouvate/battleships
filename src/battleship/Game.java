@@ -1,15 +1,14 @@
 package battleship;
 
+import java.util.Scanner;
+
 /**
  * Created by louisefranklin on 10/05/2016.
  */
 public class Game {
-    public static void main(String[] args){
-
-    }
 
     private int[] locationCells;
-    private int hitCount;
+    private int hitCount = 0;
 
     public int[] getLocationCells() {
         return locationCells;
@@ -25,7 +24,7 @@ public class Game {
     public String moveResult(String cell) {
         if(checkMove(cell)) {
             hitCount ++;
-            return hitCount >= 3 ? "Sink" : "Hit";
+            return hitCount >= locationCells.length ? "Sink" : "Hit";
         }
         else {
             return "Miss";
