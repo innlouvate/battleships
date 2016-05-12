@@ -13,7 +13,9 @@ public class Interface {
         GameHelper helper = new GameHelper();
         Game game = new Game();
 
-        while(game.inPlay()) {
+        game.getShip().initLocations();
+
+        while(game.getShip().inPlay()) {
             String move = helper.getUserInput("Make your move");
             System.out.println(game.makeMove(move));
         }
