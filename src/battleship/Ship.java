@@ -12,8 +12,8 @@ public class Ship {
     public void initLocations() {
         int randNum = (int) (Math.random() * 5);
         addLocationCells(Integer.toString(randNum));
-        addLocationCells(Integer.toString(randNum+1));
-        addLocationCells(Integer.toString(randNum+2));
+//        addLocationCells(Integer.toString(randNum+1));
+//        addLocationCells(Integer.toString(randNum+2));
     }
 
     public ArrayList getLocationCells() {

@@ -10,11 +10,18 @@ import java.util.Scanner;
 public class Interface {
 
     public static void main(String[] args){
+        Grid grid = new Grid();
         GameHelper helper = new GameHelper();
+
+        grid.initBoard();
+        grid.printBoard();
+
+        String shipNo = helper.getUserInput("How many ships?");
+
         ShipFactory shipFactory = new ShipFactory();
         Game game = new Game();
 
-        game.innit(1,shipFactory);
+        game.innit(Integer.parseInt(shipNo),shipFactory);
 
         while(!game.gameOver()) {
             String move = helper.getUserInput("Make your move");

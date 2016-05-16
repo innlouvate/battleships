@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Game {
 
     private ArrayList<String> guesses = new ArrayList<>();
-    private ArrayList<Object> ships = new ArrayList<>();
-    private Ship ship;
+    private ArrayList<Ship> ships = new ArrayList<>();
+//    private Ship ship;
 
     public void innit (int numShips, ShipFactory factory) {
         ShipFactory shipFactory = factory;
@@ -18,7 +18,7 @@ public class Game {
             shipRef.initLocations();
             ships.add(shipRef);
         }
-        ship = (Ship) ships.get(0);
+//        ship = (Ship) ships.get(0);
     }
 
     public ArrayList<String> getGuesses() {
@@ -28,7 +28,7 @@ public class Game {
         return guesses.size();
     }
 
-    public ArrayList<Object> getShips() {
+    public ArrayList<Ship> getShips() {
         return ships;
     }
 
@@ -36,14 +36,30 @@ public class Game {
         if(guesses.contains(move)) {
             return "You already tried that cell!";
         } else {
-            String result = ship.moveResult(move);
             guesses.add(move);
-            return result;
+            for(Ship boat: ships) {
+                String result = boat.moveResult(move);
+                if(result == "Hit") {
+                    return result;
+                }
+                if(result == "Sink") {
+                    ships.remove(boat);
+                    return result;
+                }
+                return result;
+            }
+
+            return "error";
         }
     }
 
     public boolean gameOver() {
-        return !ship.inPlay();
+        for(Ship boat: ships) {
+            if(boat.inPlay()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
