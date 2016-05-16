@@ -2,24 +2,37 @@ package battleship;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Matchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+@RunWith(MockitoJUnitRunner.class)
 
 /**
  * Created by louisefranklin on 10/05/2016.
  */
 public class GameTest extends Game {
 
-    private Game game;
+    @Mock
+    private ShipFactory shipFactory;
+
+    @Mock
     private Ship ship;
+
+    @InjectMocks
+    private Game game;
 
     @Before
     public void initGame() {
-        game = new GameTest();
-        ship = mock(Ship.class);
-        game.setShip(ship);
+        when(shipFactory.getShip()).thenReturn(ship);
+        when(ship.moveResult("2")).thenReturn("Test");
+        when(ship.inPlay()).thenReturn(true);
+        game.innit(1, shipFactory);
     }
 
     @Test
@@ -42,16 +55,21 @@ public class GameTest extends Game {
     }
 
     @Test
-    public void testMakeMovePassesResult() {
-        when(ship.moveResult("2")).thenReturn("Hit");
-        assertEquals("Hit", game.makeMove("2"));
+    public void testMoveMade() {
+        game.makeMove("2");
+        verify(ship, times(1)).moveResult("2");
+
     }
 
     @Test
-    public void testMoveMade() {
+    public void testGameOverFalse() {
+        assertEquals(false, game.gameOver());
+    }
 
-        game.makeMove("2");
-        verify(ship, times(1)).moveResult("2");
+    @Test
+    public void testGameOverTrue() {
+        when(ship.inPlay()).thenReturn(false);
+        assertEquals(true, game.gameOver());
     }
 
 }

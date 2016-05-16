@@ -1,9 +1,6 @@
 package battleship;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by louisefranklin on 10/05/2016.
@@ -11,14 +8,16 @@ import java.util.Set;
 public class Game {
 
     private ArrayList<String> guesses = new ArrayList<>();
-    private Ship ship = new Ship();
+    private ArrayList<Object> ships = new ArrayList<>();
+    private Ship ship;
 
-    public Ship getShip() {
-        return ship;
-    }
-
-    public void setShip(Ship ship) {
-        this.ship = ship;
+    public void innit (int numShips, ShipFactory factory) {
+        ShipFactory shipFactory = factory;
+        for(int x=0; x<numShips; x++) {
+            Object shipRef = shipFactory.getShip();
+            ships.add(shipRef);
+        }
+        ship = (Ship) ships.get(0);
     }
 
     public ArrayList<String> getGuesses() {
@@ -26,6 +25,10 @@ public class Game {
     }
     public int getGuessesSize() {
         return guesses.size();
+    }
+
+    public ArrayList<Object> getShips() {
+        return ships;
     }
 
     public String makeMove(String move) {
@@ -39,7 +42,7 @@ public class Game {
     }
 
     public boolean gameOver() {
-        return ship.inPlay();
+        return !ship.inPlay();
     }
 
 }
