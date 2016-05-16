@@ -14,7 +14,8 @@ public class Game {
     public void innit (int numShips, ShipFactory factory) {
         ShipFactory shipFactory = factory;
         for(int x=0; x<numShips; x++) {
-            Object shipRef = shipFactory.getShip();
+            Ship shipRef = shipFactory.getShip();
+            shipRef.initLocations();
             ships.add(shipRef);
         }
         ship = (Ship) ships.get(0);
