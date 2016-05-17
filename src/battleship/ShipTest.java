@@ -13,7 +13,7 @@ public class ShipTest {
     public Ship ship = new Ship();
 
     @Before
-    public void initship() {
+    public void initShip() {
         ship.addLocationCells("2");
         ship.addLocationCells("3");
         ship.addLocationCells("4");
