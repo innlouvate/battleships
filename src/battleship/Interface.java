@@ -12,23 +12,15 @@ public class Interface {
     public static void main(String[] args){
         Grid grid = new Grid();
         GameHelper helper = new GameHelper();
-
-        grid.initGrid();
-        grid.initBoard();
-
-        String shipNo = helper.getUserInput("How many ships?");
-
-        for(int x=0; x<Integer.parseInt(shipNo); x++) {
-            grid.placeShip(3);
-            System.out.println();
-        }
-
         ShipFactory shipFactory = new ShipFactory();
         Game game = new Game();
 
-        game.innit(Integer.parseInt(shipNo),shipFactory);
+        String shipNo = helper.getUserInput("How many ships?");
+
+        game.innit(Integer.parseInt(shipNo),shipFactory, grid);
 
         while(!game.gameOver()) {
+            grid.printBoard();
             String move = helper.getUserInput("Make your move");
             System.out.println(game.makeMove(move));
         }

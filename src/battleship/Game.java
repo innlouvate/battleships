@@ -11,12 +11,13 @@ public class Game {
     private ArrayList<Ship> ships = new ArrayList<>();
 //    private Ship ship;
 
-    public void innit (int numShips, ShipFactory factory) {
+    public void innit (int numShips, ShipFactory factory, Grid grid) {
         ShipFactory shipFactory = factory;
         for(int x=0; x<numShips; x++) {
             Ship shipRef = shipFactory.getShip();
             shipRef.initLocations();
             ships.add(shipRef);
+            createGrid(grid, numShips);
         }
 //        ship = (Ship) ships.get(0);
     }
@@ -61,5 +62,17 @@ public class Game {
         }
         return true;
     }
+
+    private void createGrid(Grid grid, int shipNo) {
+        grid.initGrid();
+        grid.initBoard();
+
+        for(int x=0; x<shipNo; x++) {
+            grid.placeShip(3);
+            System.out.println();
+        }
+    }
+
+
 
 }

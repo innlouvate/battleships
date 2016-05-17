@@ -24,6 +24,9 @@ public class GameTest extends Game {
     @Mock
     private Ship ship;
 
+    @Mock
+    private Grid grid;
+
     @InjectMocks
     private Game game;
 
@@ -32,7 +35,7 @@ public class GameTest extends Game {
         when(shipFactory.getShip()).thenReturn(ship);
         when(ship.moveResult("2")).thenReturn("Test");
         when(ship.inPlay()).thenReturn(true);
-        game.innit(1, shipFactory);
+        game.innit(1, shipFactory, grid);
     }
 
     @Test
