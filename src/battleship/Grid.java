@@ -76,6 +76,7 @@ public class Grid {
             }
 
         }
+
         ArrayList<String > alphaCoords = convertAlpha(coords);
         for (String n: alphaCoords) {
             System.out.print(n + " ");

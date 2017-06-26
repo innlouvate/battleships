@@ -15,9 +15,9 @@ public class Interface {
         ShipFactory shipFactory = new ShipFactory();
         Game game = new Game();
 
-        String shipNo = helper.getUserInput("How many ships?");
+//        String shipNo = helper.getUserInput("How many ships?");
 
-        game.innit(Integer.parseInt(shipNo),shipFactory, grid);
+        game.innit(Integer.parseInt("1"),shipFactory, grid);
 
         while(!game.gameOver()) {
             grid.printBoard();

@@ -13,12 +13,12 @@ public class Game {
 
     public void innit (int numShips, ShipFactory factory, Grid grid) {
         ShipFactory shipFactory = factory;
-        for(int x=0; x<numShips; x++) {
+//        for(int x=0; x<numShips; x++) {
             Ship shipRef = shipFactory.getShip();
             shipRef.initLocations();
             ships.add(shipRef);
-            createGrid(grid, numShips);
-        }
+            createGrid(grid);
+//        }
 //        ship = (Ship) ships.get(0);
     }
 
@@ -63,14 +63,14 @@ public class Game {
         return true;
     }
 
-    private void createGrid(Grid grid, int shipNo) {
+    private void createGrid(Grid grid) {
         grid.initGrid();
         grid.initBoard();
 
-        for(int x=0; x<shipNo; x++) {
+//        for(int x=0; x<shipNo; x++) {
             grid.placeShip(3);
             System.out.println();
-        }
+//        }
     }
 
 
